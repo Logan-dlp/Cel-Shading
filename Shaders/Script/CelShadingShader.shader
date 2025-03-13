@@ -65,7 +65,7 @@ Shader "logandlp/CustomShaders/CelShading"
                 half4 textureColor = SAMPLE_TEXTURE2D(_mainTexture, sampler_mainTexture, IN.uv);
                 float3 baseColor = textureColor.rgb * _mainColor.rgb;
 
-                
+                Light mainLight = GetMainLight();
                 
                 return half4(baseColor, 1.0f);
             }
