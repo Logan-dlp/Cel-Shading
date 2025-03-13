@@ -70,6 +70,13 @@ Shader "logandlp/CustomShaders/CelShading"
                 float3 celShadingCutoff = lerp(_ambientLightStrength,
                                                 1.0f,
                                                 smoothstep(_cutoffTresholds.x, _cutoffTresholds.y, mainLightDiffuse)) * mainLight.color;
+
+                float3 lightColor = 0.0f;
+                int lightCount = _AdditionalLightsCount;
+                for (int i = 0; i < lightCount; ++i)
+                {
+                    
+                }
                 
                 return half4(baseColor * celShadingCutoff, 1.0f);
             }
