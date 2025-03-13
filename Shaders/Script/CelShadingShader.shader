@@ -18,7 +18,16 @@ Shader "logandlp/CustomShaders/CelShading"
             #pragma vertex vert
             #pragma fragment frag
             
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"            
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+
+            CBUFFER_START(UnityPerMaterial)
+                half4 _mainColor;
+                float2 _cutoffTresholds;
+                float _ambientLightStrength;
+            CBUFFER_END
+
+            TEXTURE2D(_mainTexture);
+            SAMPLER(sampler_mainTexture);
             
             struct Attributes
             {
