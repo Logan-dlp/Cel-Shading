@@ -2,7 +2,10 @@ Shader "logandlp/CustomShaders/CelShading"
 {
     Properties
     {
-        
+        _mainColor("Main Color", Color) = (1, 1, 1, 1)
+        _mainTexture("Texture", 2D) = "white" {}
+        _cutoffTresholds("Cutoff Tresholds", Vector) = (-0.05, 0.05)
+        _ambientLightStrength("Ambient Light Strength", Range(0.0, 1.0)) = 0.005
     }
     
     SubShader
