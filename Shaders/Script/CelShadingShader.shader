@@ -60,10 +60,11 @@ Shader "logandlp/CustomShaders/CelShading"
             {
                 float3 normal = normalize(IN.normalWS);
                 float3 worldPosition = IN.worldPos;
+
+                half4 textureColor = SAMPLE_TEXTURE2D(_mainTexture, sampler_mainTexture, IN.uv);
+                float3 baseColor = textureColor.rgb * _mainColor.rgb;
                 
-                half4 customColor;
-                customColor = half4(0.5, 0, 0, 1);
-                return customColor;
+                return half4(baseColor, 1.0f);
             }
             ENDHLSL
         }
