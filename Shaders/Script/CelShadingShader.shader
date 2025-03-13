@@ -66,8 +66,12 @@ Shader "logandlp/CustomShaders/CelShading"
                 float3 baseColor = textureColor.rgb * _mainColor.rgb;
 
                 Light mainLight = GetMainLight();
+                float mainLightDiffuse = dot(mainLight.direction, normal);
+                float3 celShadingCutoff = lerp(_ambientLightStrength,
+                                                1.0f,
+                                                smoothstep(_cutoffTresholds.x, _cutoffTresholds.y, mainLightDiffuse)) * mainLight.color;
                 
-                return half4(baseColor, 1.0f);
+                return half4(baseColor * celShadingCutoff, 1.0f);
             }
             ENDHLSL
         }
