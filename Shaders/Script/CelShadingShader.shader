@@ -19,6 +19,7 @@ Shader "logandlp/CustomShaders/CelShading"
             #pragma fragment frag
             
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 
             CBUFFER_START(UnityPerMaterial)
                 half4 _mainColor;
@@ -63,8 +64,14 @@ Shader "logandlp/CustomShaders/CelShading"
 
                 half4 textureColor = SAMPLE_TEXTURE2D(_mainTexture, sampler_mainTexture, IN.uv);
                 float3 baseColor = textureColor.rgb * _mainColor.rgb;
+
+                Light mainLight = GetMainLight();
+                float mainLightDiffuse = dot(mainLight.direction, normal);
+                float3 celShadingCutoff = lerp(_ambientLightStrength,
+                                                1.0f,
+                                                smoothstep(_cutoffTresholds.x, _cutoffTresholds.y, mainLightDiffuse)) * mainLight.color;
                 
-                return half4(baseColor, 1.0f);
+                return half4(baseColor * celShadingCutoff, 1.0f);
             }
             ENDHLSL
         }
